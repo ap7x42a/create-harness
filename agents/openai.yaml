@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Harness"
+  short_description: "Use Create Harness."
+  default_prompt: "Use Create Harness when this skill's trigger applies."

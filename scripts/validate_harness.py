@@ -168,7 +168,13 @@ def check_frontmatter(skill_dir: Path, rep: Report) -> Optional[FrontmatterDocum
                 f"frontmatter name '{name}' must use lowercase letters, digits, and "
                 "single interior hyphens"
             )
-        if name != skill_dir.name:
+        # The consuming symlink strips a trailing ".skill" suffix from the
+        # directory name, so a ".skill"-suffixed source dir matches when the
+        # frontmatter name equals the dir name with that suffix removed.
+        expected = skill_dir.name
+        if expected.endswith(".skill"):
+            expected = expected[: -len(".skill")]
+        if name != expected:
             rep.err(
                 f"frontmatter name '{name}' must match parent directory '{skill_dir.name}'"
             )
